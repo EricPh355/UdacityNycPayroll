@@ -19,7 +19,15 @@
 					"name": "srcHistoricaldata"
 				}
 			],
-			"sinks": [],
+			"sinks": [
+				{
+					"dataset": {
+						"referenceName": "syn_payroll_summary",
+						"type": "DatasetReference"
+					},
+					"name": "snkpayrollsummary"
+				}
+			],
 			"transformations": [
 				{
 					"name": "Union"
@@ -91,7 +99,20 @@
 				"filteryear derive(Totalpaid = toFloat(RegularGrossPaid)+toFloat(TotalOTPaid)+toFloat(TotalOtherPay)) ~> derTotalPaid",
 				"Union filter(toInteger(FiscalYear) >= $FiscalYear) ~> filteryear",
 				"derTotalPaid aggregate(groupBy(AgencyName,",
-				"          FiscalYear)) ~> aggAgencyYear"
+				"          FiscalYear)) ~> aggAgencyYear",
+				"aggAgencyYear sink(allowSchemaDrift: true,",
+				"     validateSchema: false,",
+				"     deletable:false,",
+				"     insertable:true,",
+				"     updateable:false,",
+				"     upsertable:false,",
+				"     truncate:true,",
+				"     format: 'table',",
+				"     staged: true,",
+				"     allowCopyCommand: true,",
+				"     skipDuplicateMapInputs: true,",
+				"     skipDuplicateMapOutputs: true,",
+				"     errorHandlingOption: 'stopOnFirstError') ~> snkpayrollsummary"
 			]
 		}
 	}

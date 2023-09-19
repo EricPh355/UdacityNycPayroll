@@ -1,0 +1,16 @@
+{
+	"name": "syn_payroll_summary",
+	"properties": {
+		"linkedServiceName": {
+			"referenceName": "syn_udacityeph",
+			"type": "LinkedServiceReference"
+		},
+		"annotations": [],
+		"type": "AzureSqlDWTable",
+		"schema": [],
+		"typeProperties": {
+			"schema": "dbo",
+			"table": "NYC_Payroll_Summary"
+		}
+	}
+}
