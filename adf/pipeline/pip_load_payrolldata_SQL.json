@@ -1,5 +1,5 @@
 {
-	"name": "pip_load_payrolldata",
+	"name": "pip_load_payrolldata_SQL",
 	"properties": {
 		"activities": [
 			{
@@ -16,7 +16,7 @@
 				"userProperties": [],
 				"typeProperties": {
 					"dataflow": {
-						"referenceName": "df_payrolldata",
+						"referenceName": "df_payrolldata_SQL",
 						"type": "DataFlowReference"
 					},
 					"staging": {

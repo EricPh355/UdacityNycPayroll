@@ -1,5 +1,5 @@
 {
-	"name": "df_payrolldata",
+	"name": "df_payrolldata_SQL",
 	"properties": {
 		"type": "MappingDataFlow",
 		"typeProperties": {
