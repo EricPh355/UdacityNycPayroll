@@ -1278,7 +1278,7 @@
 					"transformations": [],
 					"scriptLines": [
 						"source(output(",
-						"          AgencyID as string,",
+						"          AgencyID as integer,",
 						"          AgencyName as string",
 						"     ),",
 						"     allowSchemaDrift: true,",
@@ -1338,7 +1338,7 @@
 					"transformations": [],
 					"scriptLines": [
 						"source(output(",
-						"          EmployeeID as string,",
+						"          EmployeeID as integer,",
 						"          LastName as string,",
 						"          FirstName as string",
 						"     ),",
