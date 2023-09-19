@@ -581,6 +581,60 @@
 				"[concat(variables('factoryId'), '/datasets/syn_nyc_payroll_data')]",
 				"[concat(variables('factoryId'), '/linkedServices/adls_udaceph')]"
 			]
+		},
+		{
+			"name": "[concat(parameters('factoryName'), '/pip_load_payrolldata')]",
+			"type": "Microsoft.DataFactory/factories/pipelines",
+			"apiVersion": "2018-06-01",
+			"properties": {
+				"activities": [
+					{
+						"name": "df-payrolldata",
+						"type": "ExecuteDataFlow",
+						"dependsOn": [],
+						"policy": {
+							"timeout": "0.12:00:00",
+							"retry": 0,
+							"retryIntervalInSeconds": 30,
+							"secureOutput": false,
+							"secureInput": false
+						},
+						"userProperties": [],
+						"typeProperties": {
+							"dataflow": {
+								"referenceName": "df_payrolldata",
+								"type": "DataFlowReference",
+								"parameters": {},
+								"datasetParameters": {
+									"sourcepayrolldata": {},
+									"sinkpayrollsynapse": {}
+								}
+							},
+							"staging": {
+								"linkedService": {
+									"referenceName": "adls_udaceph",
+									"type": "LinkedServiceReference"
+								},
+								"folderPath": "staging"
+							},
+							"compute": {
+								"coreCount": 8,
+								"computeType": "General"
+							},
+							"traceLevel": "Fine"
+						}
+					}
+				],
+				"policy": {
+					"elapsedTimeMetric": {},
+					"cancelAfter": {}
+				},
+				"annotations": []
+			},
+			"dependsOn": [
+				"[concat(variables('factoryId'), '/dataflows/df_payrolldata')]",
+				"[concat(variables('factoryId'), '/linkedServices/adls_udaceph')]"
+			]
 		}
 	]
 }
