@@ -1,0 +1,12 @@
+{
+	"name": "adf-udaceph",
+	"properties": {
+		"globalParameters": {
+			"FiscalYear": {
+				"type": "int",
+				"value": 2021
+			}
+		}
+	},
+	"location": "westeurope"
+}
