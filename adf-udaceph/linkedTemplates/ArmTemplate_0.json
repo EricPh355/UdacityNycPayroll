@@ -567,7 +567,7 @@
 				"schema": [],
 				"typeProperties": {
 					"schema": "dbo",
-					"table": "NYC_Payroll_Summary"
+					"table": "NYC_Payroll_Summary2"
 				}
 			},
 			"dependsOn": [
@@ -729,7 +729,12 @@
 						"     allowCopyCommand: true,",
 						"     skipDuplicateMapInputs: true,",
 						"     skipDuplicateMapOutputs: true,",
-						"     errorHandlingOption: 'stopOnFirstError') ~> snkpayrollsummary"
+						"     errorHandlingOption: 'stopOnFirstError',",
+						"     mapColumn(",
+						"          AgencyName,",
+						"          FiscalYear,",
+						"          AggTotalpaid",
+						"     )) ~> snkpayrollsummary"
 					]
 				}
 			},
