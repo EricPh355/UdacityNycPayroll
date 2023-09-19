@@ -504,7 +504,7 @@
 					"sinks": [
 						{
 							"dataset": {
-								"referenceName": "agencymaster",
+								"referenceName": "syn_nyc_payroll_agency",
 								"type": "DatasetReference"
 							},
 							"name": "snkpayrollagency",
@@ -525,24 +525,27 @@
 						"     ignoreNoFilesFound: false) ~> agencymaster",
 						"agencymaster sink(allowSchemaDrift: true,",
 						"     validateSchema: false,",
-						"     input(",
-						"          AgencyID as string,",
-						"          AgencyName as string",
-						"     ),",
-						"     umask: 0022,",
-						"     preCommands: [],",
-						"     postCommands: [],",
+						"     deletable:false,",
+						"     insertable:true,",
+						"     updateable:false,",
+						"     upsertable:false,",
+						"     format: 'table',",
+						"     staged: true,",
 						"     skipDuplicateMapInputs: true,",
 						"     skipDuplicateMapOutputs: true,",
+						"     errorHandlingOption: 'stopOnFirstError',",
 						"     mapColumn(",
 						"          AgencyID,",
 						"          AgencyName",
-						"     )) ~> snkpayrollagency"
+						"     ),",
+						"     preCommands: [],",
+						"     postCommands: []) ~> snkpayrollagency"
 					]
 				}
 			},
 			"dependsOn": [
 				"[concat(variables('factoryId'), '/datasets/agencymaster')]",
+				"[concat(variables('factoryId'), '/datasets/syn_nyc_payroll_agency')]",
 				"[concat(variables('factoryId'), '/linkedServices/adls_udaceph')]"
 			]
 		},
@@ -834,7 +837,7 @@
 					"sinks": [
 						{
 							"dataset": {
-								"referenceName": "titlemaster",
+								"referenceName": "syn_nyc_payroll_title",
 								"type": "DatasetReference"
 							},
 							"name": "snkpayrolltitle"
@@ -851,24 +854,27 @@
 						"     ignoreNoFilesFound: false) ~> titlemaster",
 						"titlemaster sink(allowSchemaDrift: true,",
 						"     validateSchema: false,",
-						"     input(",
-						"          TitleCode as string,",
-						"          TitleDescription as string",
-						"     ),",
-						"     umask: 0022,",
-						"     preCommands: [],",
-						"     postCommands: [],",
+						"     deletable:false,",
+						"     insertable:true,",
+						"     updateable:false,",
+						"     upsertable:false,",
+						"     format: 'table',",
+						"     staged: true,",
 						"     skipDuplicateMapInputs: true,",
 						"     skipDuplicateMapOutputs: true,",
+						"     errorHandlingOption: 'stopOnFirstError',",
 						"     mapColumn(",
 						"          TitleCode,",
 						"          TitleDescription",
-						"     )) ~> snkpayrolltitle"
+						"     ),",
+						"     preCommands: [],",
+						"     postCommands: []) ~> snkpayrolltitle"
 					]
 				}
 			},
 			"dependsOn": [
-				"[concat(variables('factoryId'), '/datasets/titlemaster')]"
+				"[concat(variables('factoryId'), '/datasets/titlemaster')]",
+				"[concat(variables('factoryId'), '/datasets/syn_nyc_payroll_title')]"
 			]
 		},
 		{
@@ -899,7 +905,13 @@
 									"snkpayrollagency": {}
 								}
 							},
-							"staging": {},
+							"staging": {
+								"linkedService": {
+									"referenceName": "adls_udaceph",
+									"type": "LinkedServiceReference"
+								},
+								"folderPath": "adlsnycpayroll-eric-p/dirstaging"
+							},
 							"compute": {
 								"coreCount": 8,
 								"computeType": "General"
@@ -915,7 +927,8 @@
 				"annotations": []
 			},
 			"dependsOn": [
-				"[concat(variables('factoryId'), '/dataflows/df_agency')]"
+				"[concat(variables('factoryId'), '/dataflows/df_agency')]",
+				"[concat(variables('factoryId'), '/linkedServices/adls_udaceph')]"
 			]
 		},
 		{
