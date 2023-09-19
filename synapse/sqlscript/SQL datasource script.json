@@ -1,0 +1,17 @@
+{
+	"name": "SQL datasource script",
+	"properties": {
+		"content": {
+			"query": "-- Storage path where the result set will persist\nIF NOT EXISTS (SELECT * FROM sys.external_data_sources WHERE name = 'adlsnycpayroll-eric-p_dfs_core_windows_net') \n    CREATE EXTERNAL DATA SOURCE [adlsnycpayroll-eric-p_dfs_core_windows_net] \n    WITH (\n        LOCATION = 'abfss://adlsnycpayroll-eric-p@adlsnycpayroll-eric-p.dfs.core.windows.net' \n    )\nGO",
+			"metadata": {
+				"language": "sql"
+			},
+			"currentConnection": {
+				"databaseName": "db_nycpayroll",
+				"poolName": "Built-in"
+			},
+			"resultLimit": 5000
+		},
+		"type": "SqlQuery"
+	}
+}
