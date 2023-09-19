@@ -1,0 +1,17 @@
+{
+	"name": "adls_nycpayroll_summary",
+	"properties": {
+		"content": {
+			"query": "CREATE EXTERNAL TABLE [dbo].[NYC_Payroll_Summary](\n [FiscalYear] [int] NULL, \n [AgencyName] [varchar](50) NULL, \n [TotalPaid] [float] NULL \n)\nWITH (\n\t\tLOCATION = 'NYC_Payroll_Summary.csv',\n      DATA_SOURCE = [adlsnycpayroll-eric-p_dfs_core_windows_net],\n      FILE_FORMAT = [SynapseDelimitedTextFormat]\n)\nGO",
+			"metadata": {
+				"language": "sql"
+			},
+			"currentConnection": {
+				"databaseName": "db_nycpayroll",
+				"poolName": "Built-in"
+			},
+			"resultLimit": 5000
+		},
+		"type": "SqlQuery"
+	}
+}
