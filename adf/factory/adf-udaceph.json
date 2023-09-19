@@ -1,0 +1,9 @@
+{
+	"name": "adf-udaceph",
+	"location": "westeurope",
+	"identity": {
+		"type": "SystemAssigned",
+		"principalId": "2091fd4e-5e17-4c36-93f9-b8f29b8d6c13",
+		"tenantId": "f958e84a-92b8-439f-a62d-4f45996b6d07"
+	}
+}
