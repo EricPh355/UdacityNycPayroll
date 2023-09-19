@@ -23,11 +23,20 @@
 			"transformations": [
 				{
 					"name": "Union"
+				},
+				{
+					"name": "derTotalPaid"
+				},
+				{
+					"name": "filteryear"
+				},
+				{
+					"name": "aggAgencyYear"
 				}
 			],
 			"scriptLines": [
 				"parameters{",
-				"     FiscalYear as string",
+				"     FiscalYear as integer",
 				"}",
 				"source(output(",
 				"          FiscalYear as integer,",
@@ -78,7 +87,11 @@
 				"     allowSchemaDrift: true,",
 				"     validateSchema: false,",
 				"     ignoreNoFilesFound: false) ~> srcHistoricaldata",
-				"srcpayrolldataSQL, srcHistoricaldata union(byName: true)~> Union"
+				"srcpayrolldataSQL, srcHistoricaldata union(byName: true)~> Union",
+				"filteryear derive(Totalpaid = toFloat(RegularGrossPaid)+toFloat(TotalOTPaid)+toFloat(TotalOtherPay)) ~> derTotalPaid",
+				"Union filter(toInteger(FiscalYear) >= $FiscalYear) ~> filteryear",
+				"derTotalPaid aggregate(groupBy(AgencyName,",
+				"          FiscalYear)) ~> aggAgencyYear"
 			]
 		}
 	}
