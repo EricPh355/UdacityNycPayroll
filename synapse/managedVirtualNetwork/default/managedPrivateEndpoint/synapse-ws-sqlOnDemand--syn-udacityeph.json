@@ -1,0 +1,10 @@
+{
+	"name": "synapse-ws-sqlOnDemand--syn-udacityeph",
+	"properties": {
+		"privateLinkResourceId": "/subscriptions/c2974833-f9d6-49e2-b843-74513c83a919/resourceGroups/ODL-DataEng-241562/providers/Microsoft.Synapse/workspaces/syn-udacityeph",
+		"groupId": "sqlOnDemand",
+		"fqdns": [
+			"syn-udacityeph-ondemand.aff04bd5-81fb-41c8-89fb-7456d21ba05b.sql.azuresynapse.net"
+		]
+	}
+}
