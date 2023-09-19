@@ -1,0 +1,17 @@
+{
+	"name": "SQL agency md",
+	"properties": {
+		"content": {
+			"query": "CREATE EXTERNAL TABLE [dbo].[NYC_Payroll_AGENCY_MD](\n    [AgencyID] [varchar](10) NULL,\n    [AgencyName] [varchar](50) NULL\n)\nWITH (\n\t\tLOCATION = 'payroll_agency_md.csv',\n      DATA_SOURCE = [adlsnycpayroll-eric-p_dfs_core_windows_net],\n      FILE_FORMAT = [SynapseDelimitedTextFormat]\n)\nGO",
+			"metadata": {
+				"language": "sql"
+			},
+			"currentConnection": {
+				"databaseName": "db_nycpayroll",
+				"poolName": "Built-in"
+			},
+			"resultLimit": 5000
+		},
+		"type": "SqlQuery"
+	}
+}
