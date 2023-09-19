@@ -486,7 +486,7 @@
 			]
 		},
 		{
-			"name": "[concat(parameters('factoryName'), '/df_payrolldata')]",
+			"name": "[concat(parameters('factoryName'), '/df_payrolldata_SQL')]",
 			"type": "Microsoft.DataFactory/factories/dataflows",
 			"apiVersion": "2018-06-01",
 			"properties": {
@@ -504,7 +504,7 @@
 					"sinks": [
 						{
 							"dataset": {
-								"referenceName": "syn_nyc_payroll_data",
+								"referenceName": "SQL_payrollData",
 								"type": "DatasetReference"
 							},
 							"name": "sinkpayrollsynapse",
@@ -542,20 +542,39 @@
 						"     ignoreNoFilesFound: false) ~> sourcepayrolldata",
 						"sourcepayrolldata sink(allowSchemaDrift: true,",
 						"     validateSchema: false,",
+						"     input(",
+						"          FiscalYear as integer,",
+						"          PayrollNumber as integer,",
+						"          AgencyID as string,",
+						"          AgencyName as string,",
+						"          EmployeeID as string,",
+						"          LastName as string,",
+						"          FirstName as string,",
+						"          AgencyStartDate as date,",
+						"          WorkLocationBorough as string,",
+						"          TitleCode as string,",
+						"          TitleDescription as string,",
+						"          LeaveStatusasofJune30 as string,",
+						"          BaseSalary as double,",
+						"          PayBasis as string,",
+						"          RegularHours as double,",
+						"          RegularGrossPaid as double,",
+						"          OTHours as double,",
+						"          TotalOTPaid as double,",
+						"          TotalOtherPay as double",
+						"     ),",
 						"     deletable:false,",
 						"     insertable:true,",
 						"     updateable:false,",
 						"     upsertable:false,",
 						"     format: 'table',",
-						"     staged: true,",
-						"     allowCopyCommand: true,",
 						"     skipDuplicateMapInputs: true,",
 						"     skipDuplicateMapOutputs: true,",
 						"     errorHandlingOption: 'stopOnFirstError',",
 						"     mapColumn(",
 						"          FiscalYear,",
 						"          PayrollNumber,",
-						"          AgencyCode,",
+						"          AgencyID = AgencyCode,",
 						"          AgencyName,",
 						"          EmployeeID,",
 						"          LastName,",
@@ -578,7 +597,7 @@
 			},
 			"dependsOn": [
 				"[concat(variables('factoryId'), '/datasets/nycpayroll2021')]",
-				"[concat(variables('factoryId'), '/datasets/syn_nyc_payroll_data')]",
+				"[concat(variables('factoryId'), '/datasets/SQL_payrollData')]",
 				"[concat(variables('factoryId'), '/linkedServices/adls_udaceph')]"
 			]
 		},
@@ -760,13 +779,13 @@
 			]
 		},
 		{
-			"name": "[concat(parameters('factoryName'), '/pip_load_payrolldata')]",
+			"name": "[concat(parameters('factoryName'), '/pip_load_payrolldata_SQL')]",
 			"type": "Microsoft.DataFactory/factories/pipelines",
 			"apiVersion": "2018-06-01",
 			"properties": {
 				"activities": [
 					{
-						"name": "df-payrolldata",
+						"name": "DF_payrolldata_sql",
 						"type": "ExecuteDataFlow",
 						"dependsOn": [],
 						"policy": {
@@ -779,7 +798,7 @@
 						"userProperties": [],
 						"typeProperties": {
 							"dataflow": {
-								"referenceName": "df_payrolldata",
+								"referenceName": "df_payrolldata_SQL",
 								"type": "DataFlowReference",
 								"parameters": {},
 								"datasetParameters": {
@@ -787,13 +806,7 @@
 									"sinkpayrollsynapse": {}
 								}
 							},
-							"staging": {
-								"linkedService": {
-									"referenceName": "adls_udaceph",
-									"type": "LinkedServiceReference"
-								},
-								"folderPath": "staging"
-							},
+							"staging": {},
 							"compute": {
 								"coreCount": 8,
 								"computeType": "General"
@@ -809,8 +822,7 @@
 				"annotations": []
 			},
 			"dependsOn": [
-				"[concat(variables('factoryId'), '/dataflows/df_payrolldata')]",
-				"[concat(variables('factoryId'), '/linkedServices/adls_udaceph')]"
+				"[concat(variables('factoryId'), '/dataflows/df_payrolldata_SQL')]"
 			]
 		}
 	]
