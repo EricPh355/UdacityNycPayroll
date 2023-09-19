@@ -15,7 +15,7 @@
 			"sinks": [
 				{
 					"dataset": {
-						"referenceName": "titlemaster",
+						"referenceName": "syn_nyc_payroll_title",
 						"type": "DatasetReference"
 					},
 					"name": "snkpayrolltitle"
@@ -32,19 +32,21 @@
 				"     ignoreNoFilesFound: false) ~> titlemaster",
 				"titlemaster sink(allowSchemaDrift: true,",
 				"     validateSchema: false,",
-				"     input(",
-				"          TitleCode as string,",
-				"          TitleDescription as string",
-				"     ),",
-				"     umask: 0022,",
-				"     preCommands: [],",
-				"     postCommands: [],",
+				"     deletable:false,",
+				"     insertable:true,",
+				"     updateable:false,",
+				"     upsertable:false,",
+				"     format: 'table',",
+				"     staged: true,",
 				"     skipDuplicateMapInputs: true,",
 				"     skipDuplicateMapOutputs: true,",
+				"     errorHandlingOption: 'stopOnFirstError',",
 				"     mapColumn(",
 				"          TitleCode,",
 				"          TitleDescription",
-				"     )) ~> snkpayrolltitle"
+				"     ),",
+				"     preCommands: [],",
+				"     postCommands: []) ~> snkpayrolltitle"
 			]
 		}
 	}
