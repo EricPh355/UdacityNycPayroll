@@ -872,13 +872,13 @@
 			]
 		},
 		{
-			"name": "[concat(parameters('factoryName'), '/pip_load_payrolldata_SQL')]",
+			"name": "[concat(parameters('factoryName'), '/pip_agency')]",
 			"type": "Microsoft.DataFactory/factories/pipelines",
 			"apiVersion": "2018-06-01",
 			"properties": {
 				"activities": [
 					{
-						"name": "DF_payrolldata_sql",
+						"name": "agencydata",
 						"type": "ExecuteDataFlow",
 						"dependsOn": [],
 						"policy": {
@@ -891,12 +891,12 @@
 						"userProperties": [],
 						"typeProperties": {
 							"dataflow": {
-								"referenceName": "df_payrolldata_SQL",
+								"referenceName": "df_agency",
 								"type": "DataFlowReference",
 								"parameters": {},
 								"datasetParameters": {
-									"sourcepayrolldata": {},
-									"sinkpayrollsynapse": {}
+									"agencymaster": {},
+									"snkpayrollagency": {}
 								}
 							},
 							"staging": {},
@@ -915,7 +915,7 @@
 				"annotations": []
 			},
 			"dependsOn": [
-				"[concat(variables('factoryId'), '/dataflows/df_payrolldata_SQL')]"
+				"[concat(variables('factoryId'), '/dataflows/df_agency')]"
 			]
 		},
 		{
@@ -973,13 +973,13 @@
 			]
 		},
 		{
-			"name": "[concat(parameters('factoryName'), '/pip_agency')]",
+			"name": "[concat(parameters('factoryName'), '/pip_load_payrolldata_SQL')]",
 			"type": "Microsoft.DataFactory/factories/pipelines",
 			"apiVersion": "2018-06-01",
 			"properties": {
 				"activities": [
 					{
-						"name": "agencydata",
+						"name": "DF_payrolldata_sql",
 						"type": "ExecuteDataFlow",
 						"dependsOn": [],
 						"policy": {
@@ -992,17 +992,15 @@
 						"userProperties": [],
 						"typeProperties": {
 							"dataflow": {
-								"referenceName": "df_agency",
+								"referenceName": "df_payrolldata_SQL",
 								"type": "DataFlowReference",
 								"parameters": {},
 								"datasetParameters": {
-									"agencymaster": {},
-									"snkpayrollagency": {}
+									"sourcepayrolldata": {},
+									"sinkpayrollsynapse": {}
 								}
 							},
-							"staging": {
-								"folderPath": ""
-							},
+							"staging": {},
 							"compute": {
 								"coreCount": 8,
 								"computeType": "General"
@@ -1018,7 +1016,7 @@
 				"annotations": []
 			},
 			"dependsOn": [
-				"[concat(variables('factoryId'), '/dataflows/df_agency')]"
+				"[concat(variables('factoryId'), '/dataflows/df_payrolldata_SQL')]"
 			]
 		}
 	]
