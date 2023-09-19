@@ -1,0 +1,45 @@
+{
+	"name": "pip_payroll_Summary",
+	"properties": {
+		"activities": [
+			{
+				"name": "df_Payroll_agg",
+				"type": "ExecuteDataFlow",
+				"dependsOn": [],
+				"policy": {
+					"timeout": "0.12:00:00",
+					"retry": 0,
+					"retryIntervalInSeconds": 30,
+					"secureOutput": false,
+					"secureInput": false
+				},
+				"userProperties": [],
+				"typeProperties": {
+					"dataflow": {
+						"referenceName": "df_Historicaldata",
+						"type": "DataFlowReference",
+						"parameters": {
+							"FiscalYear": {
+								"value": "@pipeline().globalParameters.FiscalYear",
+								"type": "Expression"
+							}
+						}
+					},
+					"staging": {
+						"linkedService": {
+							"referenceName": "adls_udaceph",
+							"type": "LinkedServiceReference"
+						},
+						"folderPath": "adlsnycpayroll-eric-p/dirstaging"
+					},
+					"compute": {
+						"coreCount": 8,
+						"computeType": "General"
+					},
+					"traceLevel": "Fine"
+				}
+			}
+		],
+		"annotations": []
+	}
+}
