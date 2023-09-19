@@ -1,0 +1,90 @@
+{
+	"$schema": "http://schema.management.azure.com/schemas/2015-01-01/deploymentTemplate.json#",
+	"contentVersion": "1.0.0.0",
+	"parameters": {
+		"factoryName": {
+			"type": "string",
+			"metadata": "Data Factory name",
+			"defaultValue": "adf-udaceph"
+		},
+		"adls_udaceph_accountKey": {
+			"type": "secureString",
+			"metadata": "Secure string for 'accountKey' of 'adls_udaceph'"
+		},
+		"database_udacity_eph_connectionString": {
+			"type": "secureString",
+			"metadata": "Secure string for 'connectionString' of 'database_udacity_eph'"
+		},
+		"syn_udacityeph_connectionString": {
+			"type": "secureString",
+			"metadata": "Secure string for 'connectionString' of 'syn_udacityeph'"
+		},
+		"adls_udaceph_properties_typeProperties_url": {
+			"type": "string",
+			"defaultValue": "https://strudacity.dfs.core.windows.net/"
+		},
+		"containerUri": {
+			"type": "string",
+			"metadata": "URI to storage account containing linked ARM templates"
+		},
+		"containerSasToken": {
+			"type": "string",
+			"metadata": "Sas token to storage account containing linked ARM templates"
+		}
+	},
+	"variables": {
+		"factoryId": "[concat('Microsoft.DataFactory/factories/', parameters('factoryName'))]"
+	},
+	"resources": [
+		{
+			"name": "adf-udaceph_ArmTemplate_0",
+			"type": "Microsoft.Resources/deployments",
+			"apiVersion": "2018-02-01",
+			"properties": {
+				"mode": "incremental",
+				"templateLink": {
+					"uri": "[concat(parameters('containerUri'), '/ArmTemplate_0.json', parameters('containerSasToken'))]",
+					"contentVersion": "1.0.0.0"
+				},
+				"parameters": {
+					"factoryName": {
+						"value": "[parameters('factoryName')]"
+					},
+					"adls_udaceph_accountKey": {
+						"value": "[parameters('adls_udaceph_accountKey')]"
+					},
+					"database_udacity_eph_connectionString": {
+						"value": "[parameters('database_udacity_eph_connectionString')]"
+					},
+					"syn_udacityeph_connectionString": {
+						"value": "[parameters('syn_udacityeph_connectionString')]"
+					},
+					"adls_udaceph_properties_typeProperties_url": {
+						"value": "[parameters('adls_udaceph_properties_typeProperties_url')]"
+					}
+				}
+			},
+			"dependsOn": []
+		},
+		{
+			"name": "adf-udaceph_ArmTemplate_1",
+			"type": "Microsoft.Resources/deployments",
+			"apiVersion": "2018-02-01",
+			"properties": {
+				"mode": "incremental",
+				"templateLink": {
+					"uri": "[concat(parameters('containerUri'), '/ArmTemplate_1.json', parameters('containerSasToken'))]",
+					"contentVersion": "1.0.0.0"
+				},
+				"parameters": {
+					"factoryName": {
+						"value": "[parameters('factoryName')]"
+					}
+				}
+			},
+			"dependsOn": [
+				"[resourceId('Microsoft.Resources/deployments', 'adf-udaceph_ArmTemplate_0')]"
+			]
+		}
+	]
+}
