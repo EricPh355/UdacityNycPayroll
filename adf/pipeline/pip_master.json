@@ -20,11 +20,7 @@
 						"type": "DataFlowReference"
 					},
 					"staging": {
-						"linkedService": {
-							"referenceName": "adls_udaceph",
-							"type": "LinkedServiceReference"
-						},
-						"folderPath": "adlsnycpayroll-eric-p/dirstaging"
+						"folderPath": ""
 					},
 					"compute": {
 						"coreCount": 8,
@@ -75,11 +71,7 @@
 						"type": "DataFlowReference"
 					},
 					"staging": {
-						"linkedService": {
-							"referenceName": "adls_udaceph",
-							"type": "LinkedServiceReference"
-						},
-						"folderPath": "adlsnycpayroll-eric-p/dirstaging"
+						"folderPath": ""
 					},
 					"compute": {
 						"coreCount": 8,
@@ -125,11 +117,7 @@
 						"type": "DataFlowReference"
 					},
 					"staging": {
-						"linkedService": {
-							"referenceName": "adls_udaceph",
-							"type": "LinkedServiceReference"
-						},
-						"folderPath": "adlsnycpayroll-eric-p/dirstaging"
+						"folderPath": ""
 					},
 					"compute": {
 						"coreCount": 8,
