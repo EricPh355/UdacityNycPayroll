@@ -12,7 +12,15 @@
 					"name": "empmaster"
 				}
 			],
-			"sinks": [],
+			"sinks": [
+				{
+					"dataset": {
+						"referenceName": "syn_nyc_payroll_emp_md",
+						"type": "DatasetReference"
+					},
+					"name": "snkempmaster"
+				}
+			],
 			"transformations": [],
 			"scriptLines": [
 				"source(output(",
@@ -22,7 +30,24 @@
 				"     ),",
 				"     allowSchemaDrift: true,",
 				"     validateSchema: false,",
-				"     ignoreNoFilesFound: false) ~> empmaster"
+				"     ignoreNoFilesFound: false) ~> empmaster",
+				"empmaster sink(allowSchemaDrift: true,",
+				"     validateSchema: false,",
+				"     deletable:false,",
+				"     insertable:true,",
+				"     updateable:false,",
+				"     upsertable:false,",
+				"     format: 'table',",
+				"     staged: true,",
+				"     allowCopyCommand: true,",
+				"     skipDuplicateMapInputs: true,",
+				"     skipDuplicateMapOutputs: true,",
+				"     errorHandlingOption: 'stopOnFirstError',",
+				"     mapColumn(",
+				"          EmployeeID,",
+				"          LastName,",
+				"          FirstName",
+				"     )) ~> snkempmaster"
 			]
 		}
 	}
