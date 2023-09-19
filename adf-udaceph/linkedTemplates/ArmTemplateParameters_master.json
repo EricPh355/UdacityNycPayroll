@@ -11,6 +11,9 @@
 		"database_udacity_eph_connectionString": {
 			"value": ""
 		},
+		"syn_udacityeph_connectionString": {
+			"value": ""
+		},
 		"adls_udaceph_properties_typeProperties_url": {
 			"value": "https://udaceph.dfs.core.windows.net/"
 		},

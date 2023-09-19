@@ -15,6 +15,10 @@
 			"type": "secureString",
 			"metadata": "Secure string for 'connectionString' of 'database_udacity_eph'"
 		},
+		"syn_udacityeph_connectionString": {
+			"type": "secureString",
+			"metadata": "Secure string for 'connectionString' of 'syn_udacityeph'"
+		},
 		"adls_udaceph_properties_typeProperties_url": {
 			"type": "string",
 			"defaultValue": "https://udaceph.dfs.core.windows.net/"
@@ -51,6 +55,9 @@
 					},
 					"database_udacity_eph_connectionString": {
 						"value": "[parameters('database_udacity_eph_connectionString')]"
+					},
+					"syn_udacityeph_connectionString": {
+						"value": "[parameters('syn_udacityeph_connectionString')]"
 					},
 					"adls_udaceph_properties_typeProperties_url": {
 						"value": "[parameters('adls_udaceph_properties_typeProperties_url')]"
