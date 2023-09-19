@@ -50,6 +50,13 @@
 						"referenceName": "df_title",
 						"type": "DataFlowReference"
 					},
+					"staging": {
+						"linkedService": {
+							"referenceName": "adls_udaceph",
+							"type": "LinkedServiceReference"
+						},
+						"folderPath": "adlsnycpayroll-eric-p/dirstaging"
+					},
 					"compute": {
 						"coreCount": 8,
 						"computeType": "General"
