@@ -15,7 +15,7 @@
 			"sinks": [
 				{
 					"dataset": {
-						"referenceName": "agencymaster",
+						"referenceName": "syn_nyc_payroll_agency",
 						"type": "DatasetReference"
 					},
 					"name": "snkpayrollagency",
@@ -36,19 +36,21 @@
 				"     ignoreNoFilesFound: false) ~> agencymaster",
 				"agencymaster sink(allowSchemaDrift: true,",
 				"     validateSchema: false,",
-				"     input(",
-				"          AgencyID as string,",
-				"          AgencyName as string",
-				"     ),",
-				"     umask: 0022,",
-				"     preCommands: [],",
-				"     postCommands: [],",
+				"     deletable:false,",
+				"     insertable:true,",
+				"     updateable:false,",
+				"     upsertable:false,",
+				"     format: 'table',",
+				"     staged: true,",
 				"     skipDuplicateMapInputs: true,",
 				"     skipDuplicateMapOutputs: true,",
+				"     errorHandlingOption: 'stopOnFirstError',",
 				"     mapColumn(",
 				"          AgencyID,",
 				"          AgencyName",
-				"     )) ~> snkpayrollagency"
+				"     ),",
+				"     preCommands: [],",
+				"     postCommands: []) ~> snkpayrollagency"
 			]
 		}
 	}
