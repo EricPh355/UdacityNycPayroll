@@ -15,7 +15,7 @@
 			"value": ""
 		},
 		"adls_udaceph_properties_typeProperties_url": {
-			"value": "https://udaceph.dfs.core.windows.net/"
+			"value": "https://strudacity.dfs.core.windows.net/"
 		}
 	}
 }

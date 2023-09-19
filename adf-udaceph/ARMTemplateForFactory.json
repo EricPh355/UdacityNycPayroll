@@ -21,7 +21,7 @@
 		},
 		"adls_udaceph_properties_typeProperties_url": {
 			"type": "string",
-			"defaultValue": "https://udaceph.dfs.core.windows.net/"
+			"defaultValue": "https://strudacity.dfs.core.windows.net/"
 		}
 	},
 	"variables": {
@@ -418,6 +418,66 @@
 			},
 			"dependsOn": [
 				"[concat(variables('factoryId'), '/dataflows/df_payroll')]",
+				"[concat(variables('factoryId'), '/linkedServices/adls_udaceph')]"
+			]
+		},
+		{
+			"name": "[concat(parameters('factoryName'), '/pip_payroll_Summary')]",
+			"type": "Microsoft.DataFactory/factories/pipelines",
+			"apiVersion": "2018-06-01",
+			"properties": {
+				"activities": [
+					{
+						"name": "df_Payroll_agg",
+						"type": "ExecuteDataFlow",
+						"dependsOn": [],
+						"policy": {
+							"timeout": "0.12:00:00",
+							"retry": 0,
+							"retryIntervalInSeconds": 30,
+							"secureOutput": false,
+							"secureInput": false
+						},
+						"userProperties": [],
+						"typeProperties": {
+							"dataflow": {
+								"referenceName": "df_Historicaldata",
+								"type": "DataFlowReference",
+								"parameters": {
+									"FiscalYear": {
+										"value": "@pipeline().globalParameters.FiscalYear",
+										"type": "Expression"
+									}
+								},
+								"datasetParameters": {
+									"srcpayrolldataSQL": {},
+									"srcHistoricaldata": {},
+									"snkpayrollsummary": {}
+								}
+							},
+							"staging": {
+								"linkedService": {
+									"referenceName": "adls_udaceph",
+									"type": "LinkedServiceReference"
+								},
+								"folderPath": "adlsnycpayroll-eric-p/dirstaging"
+							},
+							"compute": {
+								"coreCount": 8,
+								"computeType": "General"
+							},
+							"traceLevel": "Fine"
+						}
+					}
+				],
+				"policy": {
+					"elapsedTimeMetric": {},
+					"cancelAfter": {}
+				},
+				"annotations": []
+			},
+			"dependsOn": [
+				"[concat(variables('factoryId'), '/dataflows/df_Historicaldata')]",
 				"[concat(variables('factoryId'), '/linkedServices/adls_udaceph')]"
 			]
 		},
@@ -951,6 +1011,27 @@
 				"typeProperties": {
 					"schema": "dbo",
 					"table": "NYC_Payroll_TITLE_MD"
+				}
+			},
+			"dependsOn": [
+				"[concat(variables('factoryId'), '/linkedServices/syn_udacityeph')]"
+			]
+		},
+		{
+			"name": "[concat(parameters('factoryName'), '/syn_payroll_summary')]",
+			"type": "Microsoft.DataFactory/factories/datasets",
+			"apiVersion": "2018-06-01",
+			"properties": {
+				"linkedServiceName": {
+					"referenceName": "syn_udacityeph",
+					"type": "LinkedServiceReference"
+				},
+				"annotations": [],
+				"type": "AzureSqlDWTable",
+				"schema": [],
+				"typeProperties": {
+					"schema": "dbo",
+					"table": "NYC_Payroll_Summary"
 				}
 			},
 			"dependsOn": [
@@ -1555,88 +1636,6 @@
 			"dependsOn": [
 				"[concat(variables('factoryId'), '/datasets/titlemaster')]",
 				"[concat(variables('factoryId'), '/datasets/syn_nyc_payroll_title')]"
-			]
-		},
-		{
-			"name": "[concat(parameters('factoryName'), '/syn_payroll_summary')]",
-			"type": "Microsoft.DataFactory/factories/datasets",
-			"apiVersion": "2018-06-01",
-			"properties": {
-				"linkedServiceName": {
-					"referenceName": "syn_udacityeph",
-					"type": "LinkedServiceReference"
-				},
-				"annotations": [],
-				"type": "AzureSqlDWTable",
-				"schema": [],
-				"typeProperties": {
-					"schema": "dbo",
-					"table": "NYC_Payroll_Summary"
-				}
-			},
-			"dependsOn": [
-				"[concat(variables('factoryId'), '/linkedServices/syn_udacityeph')]"
-			]
-		},
-		{
-			"name": "[concat(parameters('factoryName'), '/pip_payroll_Summary')]",
-			"type": "Microsoft.DataFactory/factories/pipelines",
-			"apiVersion": "2018-06-01",
-			"properties": {
-				"activities": [
-					{
-						"name": "df_Payroll_agg",
-						"type": "ExecuteDataFlow",
-						"dependsOn": [],
-						"policy": {
-							"timeout": "0.12:00:00",
-							"retry": 0,
-							"retryIntervalInSeconds": 30,
-							"secureOutput": false,
-							"secureInput": false
-						},
-						"userProperties": [],
-						"typeProperties": {
-							"dataflow": {
-								"referenceName": "df_Historicaldata",
-								"type": "DataFlowReference",
-								"parameters": {
-									"FiscalYear": {
-										"value": "@pipeline().globalParameters.FiscalYear",
-										"type": "Expression"
-									}
-								},
-								"datasetParameters": {
-									"srcpayrolldataSQL": {},
-									"srcHistoricaldata": {},
-									"snkpayrollsummary": {}
-								},
-								"linkedServiceParameters": {}
-							},
-							"staging": {
-								"linkedService": {
-									"referenceName": "adls_udaceph",
-									"type": "LinkedServiceReference"
-								},
-								"folderPath": "adlsnycpayroll-eric-p/dirstaging"
-							},
-							"compute": {
-								"coreCount": 8,
-								"computeType": "General"
-							},
-							"traceLevel": "Fine"
-						}
-					}
-				],
-				"policy": {
-					"elapsedTimeMetric": {},
-					"cancelAfter": {}
-				},
-				"annotations": []
-			},
-			"dependsOn": [
-				"[concat(variables('factoryId'), '/dataflows/df_Historicaldata')]",
-				"[concat(variables('factoryId'), '/linkedServices/adls_udaceph')]"
 			]
 		}
 	]

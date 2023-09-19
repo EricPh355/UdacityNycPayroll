@@ -21,7 +21,7 @@
 		},
 		"adls_udaceph_properties_typeProperties_url": {
 			"type": "string",
-			"defaultValue": "https://udaceph.dfs.core.windows.net/"
+			"defaultValue": "https://strudacity.dfs.core.windows.net/"
 		},
 		"containerUri": {
 			"type": "string",

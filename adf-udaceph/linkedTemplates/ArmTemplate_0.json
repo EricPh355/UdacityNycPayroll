@@ -21,7 +21,7 @@
 		},
 		"adls_udaceph_properties_typeProperties_url": {
 			"type": "string",
-			"defaultValue": "https://udaceph.dfs.core.windows.net/"
+			"defaultValue": "https://strudacity.dfs.core.windows.net/"
 		}
 	},
 	"variables": {
@@ -554,6 +554,27 @@
 			]
 		},
 		{
+			"name": "[concat(parameters('factoryName'), '/syn_payroll_summary')]",
+			"type": "Microsoft.DataFactory/factories/datasets",
+			"apiVersion": "2018-06-01",
+			"properties": {
+				"linkedServiceName": {
+					"referenceName": "syn_udacityeph",
+					"type": "LinkedServiceReference"
+				},
+				"annotations": [],
+				"type": "AzureSqlDWTable",
+				"schema": [],
+				"typeProperties": {
+					"schema": "dbo",
+					"table": "NYC_Payroll_Summary"
+				}
+			},
+			"dependsOn": [
+				"[concat(variables('factoryId'), '/linkedServices/syn_udacityeph')]"
+			]
+		},
+		{
 			"name": "[concat(parameters('factoryName'), '/titlemaster')]",
 			"type": "Microsoft.DataFactory/factories/datasets",
 			"apiVersion": "2018-06-01",
@@ -589,27 +610,6 @@
 			},
 			"dependsOn": [
 				"[concat(variables('factoryId'), '/linkedServices/adls_udaceph')]"
-			]
-		},
-		{
-			"name": "[concat(parameters('factoryName'), '/syn_payroll_summary')]",
-			"type": "Microsoft.DataFactory/factories/datasets",
-			"apiVersion": "2018-06-01",
-			"properties": {
-				"linkedServiceName": {
-					"referenceName": "syn_udacityeph",
-					"type": "LinkedServiceReference"
-				},
-				"annotations": [],
-				"type": "AzureSqlDWTable",
-				"schema": [],
-				"typeProperties": {
-					"schema": "dbo",
-					"table": "NYC_Payroll_Summary"
-				}
-			},
-			"dependsOn": [
-				"[concat(variables('factoryId'), '/linkedServices/syn_udacityeph')]"
 			]
 		},
 		{
