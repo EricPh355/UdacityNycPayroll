@@ -145,7 +145,7 @@
 			"apiVersion": "2019-06-01-preview",
 			"properties": {
 				"content": {
-					"query": "CREATE EXTERNAL TABLE [dbo].[NYC_Payroll_EMP_MD](\n    [EmployeeID] [varchar](10) NULL,\n    [LastName] [varchar](20) NULL,\n    [FirstName] [varchar](20) NULL\n)\nWITH (\n\t\tLOCATION = 'payroll_emp_md.csv',\n      DATA_SOURCE = [mydlsfs20230413_mydls20230413_dfs_core_windows_net],\n      FILE_FORMAT = [SynapseDelimitedTextFormat]\n)\nGO",
+					"query": "CREATE EXTERNAL TABLE [dbo].[NYC_Payroll_EMP_MD](\n    [EmployeeID] [varchar](10) NULL,\n    [LastName] [varchar](20) NULL,\n    [FirstName] [varchar](20) NULL\n)\nWITH (\n\t\tLOCATION = 'payroll_emp_md.csv',\n      DATA_SOURCE = [adlsnycpayroll-eric-p_dfs_core_windows_net],\n      FILE_FORMAT = [SynapseDelimitedTextFormat]\n)\nGO",
 					"metadata": {
 						"language": "sql"
 					},
