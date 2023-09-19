@@ -7,7 +7,7 @@
 				"language": "sql"
 			},
 			"currentConnection": {
-				"databaseName": "db_nycpayroll",
+				"databaseName": "syn_nycpayroll",
 				"poolName": "Built-in"
 			},
 			"resultLimit": 5000

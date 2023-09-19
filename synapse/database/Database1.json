@@ -1,0 +1,22 @@
+{
+	"name": "Database1",
+	"properties": {
+		"Name": "Database1",
+		"EntityType": "DATABASE",
+		"Origin": {
+			"Type": "SPARK"
+		},
+		"Properties": {
+			"IsSyMSCDMDatabase": true
+		},
+		"Source": {
+			"Provider": "ADLS",
+			"Location": "abfss://adlsnycpayroll-eric-p@strudacity.dfs.core.windows.net/Database1",
+			"Properties": {
+				"FormatType": "csv",
+				"LinkedServiceName": "syn-udacityeph-WorkspaceDefaultStorage"
+			}
+		}
+	},
+	"type": "DATABASE"
+}
