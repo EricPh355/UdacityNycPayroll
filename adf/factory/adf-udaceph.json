@@ -1,12 +1,9 @@
 {
 	"name": "adf-udaceph",
-	"properties": {
-		"globalParameters": {
-			"FiscalYear": {
-				"type": "int",
-				"value": 2021
-			}
-		}
-	},
-	"location": "westeurope"
+	"location": "westeurope",
+	"identity": {
+		"type": "SystemAssigned",
+		"principalId": "e1894120-00b9-4936-8592-1c1334de19b7",
+		"tenantId": "35495f19-b115-4a02-b807-a134bf31522b"
+	}
 }
