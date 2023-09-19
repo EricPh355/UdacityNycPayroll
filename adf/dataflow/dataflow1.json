@@ -12,7 +12,19 @@
 					"name": "sourcepayrolldata"
 				}
 			],
-			"sinks": [],
+			"sinks": [
+				{
+					"dataset": {
+						"referenceName": "syn_nyc_payroll_data",
+						"type": "DatasetReference"
+					},
+					"name": "sinkpayrollsynapse",
+					"rejectedDataLinkedService": {
+						"referenceName": "adls_udaceph",
+						"type": "LinkedServiceReference"
+					}
+				}
+			],
 			"transformations": [],
 			"scriptLines": [
 				"source(output(",
@@ -38,7 +50,19 @@
 				"     ),",
 				"     allowSchemaDrift: true,",
 				"     validateSchema: false,",
-				"     ignoreNoFilesFound: false) ~> sourcepayrolldata"
+				"     ignoreNoFilesFound: false) ~> sourcepayrolldata",
+				"sourcepayrolldata sink(allowSchemaDrift: true,",
+				"     validateSchema: false,",
+				"     deletable:false,",
+				"     insertable:true,",
+				"     updateable:false,",
+				"     upsertable:false,",
+				"     format: 'table',",
+				"     staged: true,",
+				"     allowCopyCommand: true,",
+				"     skipDuplicateMapInputs: true,",
+				"     skipDuplicateMapOutputs: true,",
+				"     errorHandlingOption: 'stopOnFirstError') ~> sinkpayrollsynapse"
 			]
 		}
 	}
