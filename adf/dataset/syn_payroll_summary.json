@@ -10,7 +10,7 @@
 		"schema": [],
 		"typeProperties": {
 			"schema": "dbo",
-			"table": "NYC_Payroll_Summary"
+			"table": "NYC_Payroll_Summary2"
 		}
 	}
 }
